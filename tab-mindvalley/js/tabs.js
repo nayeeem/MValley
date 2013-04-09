@@ -72,6 +72,10 @@ jQuery(document).ready(function($) {
 
         function handleClientLoad() {
              gapi.client.setApiKey(apiKey);
+	     //simple access using api key
+	     //no need to call window.setTimeout(checkAuth,1);
+	`    //rather directly call the following line.
+             //gapi.client.load('analytics', 'v3', makeApiCall); 	
              window.setTimeout(checkAuth,1);
          }
 

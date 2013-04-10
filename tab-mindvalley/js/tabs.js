@@ -8,8 +8,11 @@ jQuery(document).ready(function($) {
 	
 		//tell Analytics about the current page load using standard _trackPageview method
 		try {
-			var pageTracker = _gat._getTracker("UA-39768188-1");
-			pageTracker._trackPageview();
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-39768188-1']);
+                        _gaq.push(['_trackPageview']);
+			//var pageTracker = _gat._getTracker("UA-39768188-1");
+			//pageTracker._trackPageview();
 
 		} catch(err) {alert("g");}
 		
@@ -27,7 +30,8 @@ jQuery(document).ready(function($) {
 					//post links has a sub string ?p=
 					//put the ancor text as category, this is actually the title of the post
 					if (extLink.toLowerCase().indexOf("?p=") >= 0){
-						pageTracker._trackEvent($(this).text(), 'Click', extLink);
+						_gaq.push(['_trackEvent', $(this).text(), 'Click', extLink]);			
+	          			        //pageTracker._trackEvent($(this).text(), 'Click', extLink);
 					}
 
 				});

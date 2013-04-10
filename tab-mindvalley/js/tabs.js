@@ -1,46 +1,29 @@
 jQuery(document).ready(function($) {
         $('#tabs').tabs();
- 
-        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-	
-	//use jQuery to call the Google Analytics JavaScript
-	$.getScript(gaJsHost + "google-analytics.com/ga.js", function(){
-	
-		//tell Analytics about the current page load using standard _trackPageview method
-		try {
-			var _gaq = _gaq || [];
-			_gaq.push(['_setAccount', 'UA-39768188-1']);
-                        _gaq.push(['_trackPageview']);
-			//var pageTracker = _gat._getTracker("UA-39768188-1");
-			//pageTracker._trackPageview();
-
-		} catch(err) {alert("g");}
-		
-		//loop though each anchor element
-		$('a').each(function(){
+        $('a').each(function(){
 			
 			var href = $(this).attr('href');
 			
 			//check for links starting with http or https, making sure that links are to our own domain
-			if ((href.match(/^https?\:/i)) && (href.match(document.domain))){
+			//this is required for public site which is not local host
+			//if ((href.match(/^https?\:/i)) || (href.match(document.domain))){
+			
 				$(this).click(function() {
 					
 					var extLink = href.replace(/^https?\:\/\//i, '');
+					
 					//check weather it is a post link or not 
 					//post links has a sub string ?p=
 					//put the ancor text as category, this is actually the title of the post
 					if (extLink.toLowerCase().indexOf("?p=") >= 0){
-						_gaq.push(['_trackEvent', $(this).text(), 'Click', extLink]);			
-	          			        //pageTracker._trackEvent($(this).text(), 'Click', extLink);
+						_gaq.push(['_trackEvent', $(this).text(), 'Click', extLink]);
+					        
 					}
 
 				});
-			}
-		});
-		
-	});
-
-	//ajax request the getPost php page
+			//}
+        });
+  	//ajax request the getPost php page
         var request = $.ajax({
                	url: "../naimul/wp-content/plugins/tab-mindvalley/getpost.php",
                 type: "GET",           
